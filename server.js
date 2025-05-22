@@ -12,7 +12,7 @@ const server = fastify({
   },
 });
 
-const PORT = 90;
+const PORT = process.env.PORT || 4000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +22,10 @@ const db = await AsyncDatabase.open("./pizza.sqlite");
 server.register(fastifyStatic, {
   root: path.join(__dirname, "public"),
   prefix: "/public/",
+});
+
+server.get("/", (req, res) => {
+  res.send("Hello World!");
 });
 
 server.get("/api/pizzas", async function getPizzas(req, res) {
