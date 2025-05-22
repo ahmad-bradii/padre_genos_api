@@ -5,16 +5,16 @@ import { fileURLToPath } from "url";
 import { AsyncDatabase } from "promised-sqlite3";
 import fastifyCors from "@fastify/cors";
 
-await server.register(fastifyCors, {
-  origin: true, // or specify your frontend URL for more security
-});
-
 const server = fastify({
   logger: {
     transport: {
       target: "pino-pretty",
     },
   },
+});
+
+await server.register(fastifyCors, {
+  origin: true, // or specify your frontend URL for more security
 });
 
 const PORT = process.env.PORT || 4000;
