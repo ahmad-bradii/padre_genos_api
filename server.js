@@ -3,6 +3,11 @@ import fastifyStatic from "@fastify/static";
 import path from "path";
 import { fileURLToPath } from "url";
 import { AsyncDatabase } from "promised-sqlite3";
+import fastifyCors from "@fastify/cors";
+
+await server.register(fastifyCors, {
+  origin: true, // or specify your frontend URL for more security
+});
 
 const server = fastify({
   logger: {
@@ -167,7 +172,6 @@ server.post("/api/order", async function createOrder(req, res) {
   if (!cart || !Array.isArray(cart) || cart.length === 0) {
     res.status(400).send({ error: "Invalid order data" });
     return;
-    f;
   }
 
   try {
